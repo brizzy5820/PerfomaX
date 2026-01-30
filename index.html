@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PerformaX Coffee - Unlock Your Peak Performance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #D4AF37;
+            --secondary-color: #8B7355;
+            --dark-bg: #0f0f0f;
+            --darker-bg: #060606;
+            --text-light: #f5f5f5;
+            --text-gray: #a0a0a0;
+            --accent-green: #10b981;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --card-bg: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--darker-bg);
+            color: var(--text-light);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: 
+                linear-gradient(135deg, rgba(15, 15, 15, 0.9), rgba(6, 6, 6, 0.95)),
+                url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1600');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            overflow: hidden;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05), transparent 70%);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #fff, var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--text-gray);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--dark-bg);
+            padding: 1.2rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
+            font-weight: 300;
+        }
+
+        /* Story Section */
+        .story-section {
+            background: linear-gradient(180deg, var(--darker-bg) 0%, var(--dark-bg) 50%, var(--darker-bg) 100%);
+            padding: 8rem 2rem;
+        }
+
+        .story-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .story-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #fff, var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .story-text {
+            margin-bottom: 3rem;
+        }
+
+        .story-text p {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            line-height: 1.9;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .emphasis-text {
+            font-size: clamp(1.3rem, 2.5vw, 1.6rem) !important;
+            color: var(--primary-color) !important;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .highlight-text {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(139, 115, 85, 0.2));
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 10px;
+            font-size: clamp(1.2rem, 2.2vw, 1.4rem) !important;
+            font-weight: 600;
+        }
+
+        .pain-point {
+            color: #ff6b6b !important;
+            font-size: clamp(1.3rem, 2.5vw, 1.5rem) !important;
+            font-weight: 700;
+            margin: 2rem 0 !important;
+        }
+
+        .story-subheading {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 700;
+            text-align: center;
+            margin: 3rem 0 2rem;
+            color: var(--primary-color);
+        }
+
+        .turning-point {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .climax-text {
+            font-size: clamp(1.4rem, 2.8vw, 1.7rem) !important;
+            color: var(--accent-green) !important;
+            font-weight: 600;
+            font-style: italic;
+            margin: 2rem 0 !important;
+        }
+
+        .whisper-text {
+            font-size: clamp(1.5rem, 3vw, 2rem) !important;
+            color: var(--primary-color) !important;
+            font-style: italic;
+            font-weight: 700;
+            background: rgba(212, 175, 55, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid var(--primary-color);
+            margin: 2rem 0 !important;
+        }
+
+        .resolution-text {
+            font-size: clamp(1.3rem, 2.5vw, 1.6rem) !important;
+            color: var(--accent-green) !important;
+            font-weight: 700;
+            margin: 2rem 0 !important;
+        }
+
+        .final-words {
+            font-size: clamp(1.4rem, 2.8vw, 1.8rem) !important;
+            font-weight: 700;
+            line-height: 2 !important;
+            background: linear-gradient(135deg, #fff, var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 2rem 0 !important;
+        }
+
+        .conclusion {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(212, 175, 55, 0.05));
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        /* Flier Image Containers */
+        .flier-image-container {
+            margin: 4rem 0;
+            text-align: center;
+            position: relative;
+            width: 50%;
+            overflow: hidden;
+            border-radius: 20px;
+            border: 3px dashed var(--primary-color);
+            background: rgba(212, 175, 55, 0.05);
+            padding: 2rem;
+            transition: all 0.4s ease;
+        }
+
+        .flier-image-container:hover {
+            border-style: solid;
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .flier-image {
+            width: 100%;
+            max-width: 100%;
+            height: 300px;
+            border-radius: 15px;
+            display: block;
+            transition: all 0.4s ease;
+        }
+
+        .flier-image-container:hover .flier-image {
+            transform: scale(1.02);
+        }
+
+        .image-caption {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        .cta-wrapper {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        /* About Section */
+        #about {
+            background: linear-gradient(180deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p:first-of-type {
+            font-size: 1.4rem;
+            font-style: italic;
+            color: var(--primary-color);
+            font-weight: 400;
+        }
+
+        .image-collage {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .image-collage img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-collage img:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Ingredients Section */
+        #ingredients {
+            background: var(--dark-bg);
+        }
+
+        .ingredients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .ingredient-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .ingredient-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .ingredient-card h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .ingredient-card .percentage {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .ingredient-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .nafdac-badge {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(139, 115, 85, 0.1));
+            border-radius: 15px;
+            border: 1px solid var(--primary-color);
+        }
+
+        .nafdac-badge p {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Testimonials Section */
+        #testimonials {
+            background: linear-gradient(180deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+        }
+
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 50%;
+            margin-top: 3rem;
+        }
+
+        .testimonial {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            position: relative;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .testimonial::before {
+         
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 5rem;
+            color: var(--primary-color);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+
+        .testimonial:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .testimonial p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        /* Offer Section */
+        .offer-section {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(212, 175, 55, 0.1));
+            border-radius: 30px;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-top: 3rem;
+            border: 2px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .offer-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1), transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        .cover{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .offer-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .offer-section h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .price-container {
+            margin: 2rem 0;
+        }
+
+        .old-price {
+            font-size: 1.5rem;
+            color: var(--text-gray);
+            text-decoration: line-through;
+        }
+
+        .new-price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent-green);
+            margin-top: 0.5rem;
+        }
+
+        .offer-features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-badge {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker-bg);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        footer p {
+            color: var(--text-gray);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        .ingredients-compact {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 3rem;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.ingredients-text .tagline {
+    color: var(--primary-color);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.ingredients-text h2 {
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    font-weight: 800;
+    margin: 0.5rem 0 1rem;
+    background: linear-gradient(135deg, #fff, var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.ingredients-text .short-desc {
+    color: var(--text-gray);
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+}
+
+.benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+}
+
+.benefits-list li {
+    margin-bottom: 0.6rem;
+    font-weight: 500;
+}
+
+.no-pill {
+    font-size: 1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.ingredients-visual img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 20px;
+    border: 2px solid rgba(212, 175, 55, 0.2);
+    margin-bottom: 1rem;
+}
+
+.trust-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.trust-badges span {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    font-weight: 600;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .ingredients-compact {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .benefits-list li {
+        justify-content: center;
+    }
+
+    .trust-badges {
+        justify-content: center;
+    }
+}
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(15, 15, 15, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: left 0.3s ease;
+            }
+
+            nav ul.active {
+                left: 0;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .mobile-menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .mobile-menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .mobile-menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .hero {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .ingredients-grid,
+            .testimonials-container {
+                grid-template-columns: 1fr;
+                width: 100%;
+            }
+
+            .offer-section {
+                padding: 3rem 1.5rem;
+            }
+                 .flier-image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            display: block;
+            transition: all 0.4s ease;
+        }
+          .flier-image-container{
+            width: 100%;
+          }
+        }
+
+        /* Scroll animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">PerformaX</div>
+            <ul id="navMenu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#testimonials">Reviews</a></li>
+                <li><a href="#order">Order</a></li>
+            </ul>
+            <div class="mobile-menu-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Upgrade From One Round to One Season</h1>
+            <p>Introducing PerformaX Coffee</p>
+            <p>NAFDAC-Approved Coffee That Boosts Energy, Confidence, and Performance Naturally</p>
+            <a href="#order" class="cta-button">Dm To Get Yours</a>
+        </div>
+    </section>
+      <section id="about">
+        <div class="about-content scroll-reveal">
+            <h2 class="section-title">From Frustration to Confidence</h2>
+            <p>PerformaX Coffee is a carefully formulated, NAFDAC-approved blend designed for men who want to feel more energetic, confident, and perform naturally. No injections, no awkward pills—just a warm cup of coffee that transforms your daily routine.</p>
+        </div>
+
+        <!-- Flier Image Space 5 -->
+    <div class="cover">
+            <div class="flier-image-container scroll-reveal" style="margin-top: 4rem;">
+            <img src="img/img 1.jpeg" alt="Add your flier image here" class="flier-image">
+            <p class="image-caption">Replace with lifestyle or couple imagery</p>
+        </div>
+    </div>
+        <div style="width: 100%; display: flex; justify-content: center; align-items: center;"> <a href="#order" class="cta-button">Dm Me Now</a>
+</div>
+    </section>
+
+
+  
+ <section id="ingredients">
+    <div class="ingredients-compact scroll-reveal">
+
+        <!-- Left -->
+        <div class="ingredients-text">
+            <span class="tagline">Introducing</span>
+            <h2>PerformaX Coffee</h2>
+            <p class="short-desc">
+                A carefully formulated, <strong>NAFDAC-approved</strong> coffee blend designed
+                for men who want real results—naturally.
+            </p>
+
+            <ul class="benefits-list">
+                <li>⚡ More energy & confidence</li>
+                <li>🔥 Improved performance</li>
+                <li>❤️ Reignite intimacy — no pressure</li>
+                <li>🌿 No harsh chemicals</li>
+            </ul>
+
+            <p class="no-pill">
+                No injections. No awkward pills.<br>
+                <strong>Just a warm cup of coffee.</strong>
+            </p>
+        </div>
+
+        <!-- Right -->
+        <div class="ingredients-visual">
+            <img src="img/img2.jpeg" alt="PerformaX Coffee" />
+
+            <div class="trust-badges">
+                <span>✔ NAFDAC Approved</span>
+                <span>✔ Easy to Use</span>
+                <span>✔ Natural Ingredients</span>
+                <span>✔ Discreet Packaging</span>
+                <span>✔ Trusted by Nigerian Men</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+    <section id="testimonials">
+        <div class="scroll-reveal">
+            <h2 class="section-title">Real Results from Real Men</h2>
+            <p class="section-subtitle">Join thousands of satisfied customers across Nigeria</p>
+        </div>
+      <div class="cover">
+          <div class="testimonials-container">
+                <div class="testimonial scroll-reveal">
+            <img src="img/testimonials.jpeg" alt="Add your flier image here" class="flier-image">
+        </div>
+      </div>
+        </div>
+    </section>
+
+    <section id="order">
+        <div class="scroll-reveal">
+            <h2 class="section-title">Experience More in the Bedroom</h2>
+            <p class="section-subtitle">Walk into the bedroom with energy, confidence, and the ability to last longer</p>
+            
+        <!-- Flier Image Space 7 -->
+      <div class="cover">
+          <div class="flier-image-container scroll-reveal" style="margin-top: 4rem;">
+            <img src="img/img3.jpeg" alt="Add your flier image here" class="flier-image">
+            <p class="image-caption">Replace with customer success stories or testimonial graphics</p>
+        </div>
+      </div>
+        </div>
+            <div class="cta-wrapper">
+                <a href="#order" class="cta-button">Dm to get yours </a>
+            </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 PerformaX Coffee. All Rights Reserved.</p>
+        <p style="margin-top: 0.5rem;">Trusted by Nigerian Men Nationwide</p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileToggle.addEventListener('click', () => {
+            mobileToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll reveal animation
+        const revealElements = document.querySelectorAll('.scroll-reveal');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const revealPoint = 100;
+                
+                if (elementTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check on page load
+    </script>
+
+</body>
+</html
